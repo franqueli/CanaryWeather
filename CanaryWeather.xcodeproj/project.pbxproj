@@ -16,6 +16,7 @@
 		6CC959D622C41E4C0080793D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959D522C41E4C0080793D /* main.m */; };
 		6CC959E022C41E4C0080793D /* CanaryWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959DF22C41E4C0080793D /* CanaryWeatherTests.m */; };
 		6CC959EB22C41E4C0080793D /* CanaryWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959EA22C41E4C0080793D /* CanaryWeatherUITests.m */; };
+		6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,8 @@
 		6CC959E622C41E4C0080793D /* CanaryWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanaryWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC959EA22C41E4C0080793D /* CanaryWeatherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanaryWeatherUITests.m; sourceTree = "<group>"; };
 		6CC959EC22C41E4C0080793D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDataSource.m; sourceTree = "<group>"; };
+		6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDataSource.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 				6CC959D422C41E4C0080793D /* Info.plist */,
 				6CC959D522C41E4C0080793D /* main.m */,
 				6CC959CC22C41E4B0080793D /* CanaryWeather.xcdatamodeld */,
+				6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */,
+				6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */,
 			);
 			path = CanaryWeather;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 				6CC959CE22C41E4B0080793D /* CanaryWeather.xcdatamodeld in Sources */,
 				6CC959C822C41E4B0080793D /* ViewController.m in Sources */,
 				6CC959D622C41E4C0080793D /* main.m in Sources */,
+				6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */,
 				6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
