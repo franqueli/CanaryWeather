@@ -12,7 +12,7 @@
 @interface ViewController () {
     CLLocationCoordinate2D _locationCoordinate;
 }
-@property (nonatomic, strong) IBOutlet UILabel *placeLabel;
+@property (nonatomic, strong) IBOutlet UILabel *lastUpdatedLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
