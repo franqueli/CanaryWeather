@@ -12,7 +12,7 @@
 @interface ViewController () {
     CLLocationCoordinate2D _locationCoordinate;
 }
-
+@property (nonatomic, strong) IBOutlet UILabel *placeLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @end
 
@@ -31,6 +31,19 @@
 
     [self checkLocationAuthorization];
 }
+
+- (void) placeNameForCurrentLocation {
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    if (_locationManager.location) {
+        [geocoder reverseGeocodeLocation: _locationManager.location completionHandler: ^(NSArray<CLPlacemark *> *placemarks, NSError *error) {
+            if (error == nil) {
+                CLPlacemark *firstPlaceMark = [placemarks firstObject];
+                self.navigationItem.title = [NSString stringWithFormat: @"Weather for %@", [firstPlaceMark locality]];
+            }
+        }];
+    }
+}
+
 
 - (void) checkLocationAuthorization {
     CLAuthorizationStatus authorizationStatus = CLLocationManager.authorizationStatus;
@@ -57,6 +70,7 @@
     [manager stopUpdatingLocation];
     // TODO: Stop spinner
     // TODO: Get location name from Coordinates
+    [self placeNameForCurrentLocation];
 }
 
 - (void) locationManager: (CLLocationManager *)manager didChangeAuthorizationStatus: (CLAuthorizationStatus)status {
