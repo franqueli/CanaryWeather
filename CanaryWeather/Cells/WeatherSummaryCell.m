@@ -9,19 +9,19 @@
 #import "WeatherSummaryCell.h"
 #import "ForecastDataPoint+Extension.h"
 
-@interface WeatherSummaryCell()
+@interface WeatherSummaryCell ()
 
-@property(nonatomic, strong) IBOutlet UIImageView *iconImageView;
-@property(nonatomic, strong) IBOutlet UILabel *highTempLabel;
-@property(nonatomic, strong) IBOutlet UILabel *lowTempLabel;
-@property(nonatomic, strong) IBOutlet UILabel *dayLabel;
-@property(nonatomic, strong) IBOutlet UILabel *conditionsLabel;
+@property (nonatomic, strong) IBOutlet UIImageView *iconImageView;
+@property (nonatomic, strong) IBOutlet UILabel *highTempLabel;
+@property (nonatomic, strong) IBOutlet UILabel *lowTempLabel;
+@property (nonatomic, strong) IBOutlet UILabel *dayLabel;
+@property (nonatomic, strong) IBOutlet UILabel *conditionsLabel;
 
 @end
 
 @implementation WeatherSummaryCell
 
-- (void)awakeFromNib {
+- (void) awakeFromNib {
     [super awakeFromNib];
 
 }
@@ -66,7 +66,7 @@
 
     _dayLabel.text = [NSString stringWithFormat: @"%@", _forecastData.time];
     _highTempLabel.text = [NSString stringWithFormat: @"H: %.1f", _forecastData.temperatureMax];
-    _lowTempLabel.text =  [NSString stringWithFormat: @"H: %.1f", _forecastData.temperatureMin];
+    _lowTempLabel.text = [NSString stringWithFormat: @"H: %.1f", _forecastData.temperatureMin];
     _conditionsLabel.text = _forecastData.summary;
 }
 
