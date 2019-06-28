@@ -88,6 +88,7 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     NSNumber *longitude = props[@"longitude"];
     NSString *timezone = props[@"timezone"];
 
+    forecastLocation.creationDate = [NSDate date];
     forecastLocation.latitude = [latitude doubleValue];
     forecastLocation.longitude = [longitude doubleValue];
     forecastLocation.timezone = timezone;
