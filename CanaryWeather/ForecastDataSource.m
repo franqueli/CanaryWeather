@@ -109,7 +109,7 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     forecastDataPoint.summary = infoForDay[@"summary"];
     forecastDataPoint.temperatureMax = [(NSNumber *)infoForDay[@"temperatureMax"] doubleValue];
     forecastDataPoint.temperatureMin = [(NSNumber *)infoForDay[@"temperatureMin"] doubleValue];
-    forecastDataPoint.time = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate: [(NSNumber *)infoForDay[@"time"] integerValue]];
+    forecastDataPoint.time = [[NSDate alloc] initWithTimeIntervalSince1970: [(NSNumber *)infoForDay[@"time"] integerValue]];
 
     forecastDataPoint.location = forecastLocation;
 
