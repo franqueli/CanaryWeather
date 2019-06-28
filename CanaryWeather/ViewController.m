@@ -124,11 +124,14 @@
 - (void) controller: (NSFetchedResultsController *)controller didChangeSection: (id <NSFetchedResultsSectionInfo>)sectionInfo
             atIndex: (NSUInteger)sectionIndex forChangeType: (NSFetchedResultsChangeType)type {
 
+    NSLog(@"**** FC SectionDidChange ****");
 }
 
 - (void) controller: (NSFetchedResultsController *)controller didChangeObject: (id)anObject
         atIndexPath: (nullable NSIndexPath *)indexPath forChangeType: (NSFetchedResultsChangeType)type
        newIndexPath: (nullable NSIndexPath *)newIndexPath {
+
+    NSLog(@"**** FC DidChangeObject ****");
 
     switch (type){
         case NSFetchedResultsChangeInsert:
@@ -143,25 +146,13 @@
     }
 }
 
-/*
- *
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return fetchedResultsController.sections?.count ?? 1
-    }
+- (void) controllerWillChangeContent: (NSFetchedResultsController *)controller {
+    NSLog(@"**** FC WillChangeContent ****");
+}
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let aNotebook = fetchedResultsController.object(at: indexPath)
-
-
-
- *
- */
-
-
+- (void) controllerDidChangeContent: (NSFetchedResultsController *)controller {
+    NSLog(@"**** FC DidChangeContent ****");
+}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -181,7 +172,7 @@
 - (CGSize) collectionView: (UICollectionView *)collectionView layout: (UICollectionViewLayout *)collectionViewLayout
    sizeForItemAtIndexPath: (NSIndexPath *)indexPath {
 
-    CGSize result = CGSizeMake(collectionView.frame.size.width - 10.0, 60.0);
+    CGSize result = CGSizeMake(collectionView.frame.size.width, 90.0);
 
     return result;
 }
