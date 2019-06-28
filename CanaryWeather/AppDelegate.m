@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "ForecastDataSource.h"
 #import "DataController.h"
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -28,6 +29,15 @@
     self.forecastDataSource = [[ForecastDataSource alloc] init];
     _forecastDataSource.dataController = _dataController;
     [_forecastDataSource loadForecastForLatitude: 0.0 longitude: 0.0];
+
+//    let navigationController = window?.rootViewController as! UINavigationController
+//    let notebooksListViewController = navigationController.topViewController as! NotebooksListViewController
+//    notebooksListViewController.dataController = dataController
+
+    UINavigationController *navigationController = (UINavigationController *)_window.rootViewController;
+    ViewController *vc = (ViewController *)navigationController.topViewController;
+    vc.dataController = _dataController;
+
 
     return YES;
 }

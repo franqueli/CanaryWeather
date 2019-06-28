@@ -16,6 +16,8 @@
 		6CC959D622C41E4C0080793D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959D522C41E4C0080793D /* main.m */; };
 		6CC959E022C41E4C0080793D /* CanaryWeatherTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959DF22C41E4C0080793D /* CanaryWeatherTests.m */; };
 		6CC959EB22C41E4C0080793D /* CanaryWeatherUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959EA22C41E4C0080793D /* CanaryWeatherUITests.m */; };
+		6CCB0B2A22C64327009DB81C /* WeatherSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB0B2922C64327009DB81C /* WeatherSummaryCell.m */; };
+		6CCB0B2D22C6456D009DB81C /* ForecastDataPoint+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB0B2C22C6456D009DB81C /* ForecastDataPoint+Extension.m */; };
 		6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */; };
 		D37EA10DA16F353E33FBCC54 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37EABC576F733F123CC0677 /* DataController.m */; };
 /* End PBXBuildFile section */
@@ -55,6 +57,10 @@
 		6CC959E622C41E4C0080793D /* CanaryWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CanaryWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC959EA22C41E4C0080793D /* CanaryWeatherUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CanaryWeatherUITests.m; sourceTree = "<group>"; };
 		6CC959EC22C41E4C0080793D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6CCB0B2822C64327009DB81C /* WeatherSummaryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherSummaryCell.h; sourceTree = "<group>"; };
+		6CCB0B2922C64327009DB81C /* WeatherSummaryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherSummaryCell.m; sourceTree = "<group>"; };
+		6CCB0B2B22C6456D009DB81C /* ForecastDataPoint+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ForecastDataPoint+Extension.h"; sourceTree = "<group>"; };
+		6CCB0B2C22C6456D009DB81C /* ForecastDataPoint+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "ForecastDataPoint+Extension.m"; sourceTree = "<group>"; };
 		6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDataSource.m; sourceTree = "<group>"; };
 		6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDataSource.h; sourceTree = "<group>"; };
 		D37EA1C540A6021A109B934A /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
@@ -86,6 +92,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C92092722C63E6B00B6C4E5 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				6CCB0B2822C64327009DB81C /* WeatherSummaryCell.h */,
+				6CCB0B2922C64327009DB81C /* WeatherSummaryCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		6CC959B722C41E4B0080793D = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +124,8 @@
 		6CC959C222C41E4B0080793D /* CanaryWeather */ = {
 			isa = PBXGroup;
 			children = (
+				6C92092722C63E6B00B6C4E5 /* Cells */,
+				6CCB0B2722C642DF009DB81C /* Model */,
 				6CC959C322C41E4B0080793D /* AppDelegate.h */,
 				6CC959C422C41E4B0080793D /* AppDelegate.m */,
 				6CC959C622C41E4B0080793D /* ViewController.h */,
@@ -118,7 +135,6 @@
 				6CC959D122C41E4C0080793D /* LaunchScreen.storyboard */,
 				6CC959D422C41E4C0080793D /* Info.plist */,
 				6CC959D522C41E4C0080793D /* main.m */,
-				6CC959CC22C41E4B0080793D /* CanaryWeather.xcdatamodeld */,
 				6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */,
 				6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */,
 				D37EABC576F733F123CC0677 /* DataController.m */,
@@ -143,6 +159,16 @@
 				6CC959EC22C41E4C0080793D /* Info.plist */,
 			);
 			path = CanaryWeatherUITests;
+			sourceTree = "<group>";
+		};
+		6CCB0B2722C642DF009DB81C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6CC959CC22C41E4B0080793D /* CanaryWeather.xcdatamodeld */,
+				6CCB0B2B22C6456D009DB81C /* ForecastDataPoint+Extension.h */,
+				6CCB0B2C22C6456D009DB81C /* ForecastDataPoint+Extension.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -280,7 +306,9 @@
 				6CC959D622C41E4C0080793D /* main.m in Sources */,
 				6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */,
 				6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */,
+				6CCB0B2A22C64327009DB81C /* WeatherSummaryCell.m in Sources */,
 				D37EA10DA16F353E33FBCC54 /* DataController.m in Sources */,
+				6CCB0B2D22C6456D009DB81C /* ForecastDataPoint+Extension.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

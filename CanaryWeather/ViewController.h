@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
+#import <CoreData/CoreData.h>
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate>
+@class DataController;
 
+@interface ViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate>
+
+@property (nonatomic, strong) DataController *dataController;
 
 @end
 

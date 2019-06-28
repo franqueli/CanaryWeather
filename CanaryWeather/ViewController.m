@@ -7,19 +7,27 @@
 //
 
 #import "ViewController.h"
+#import "CanaryWeather+CoreDataModel.h"
+#import "DataController.h"
 #import <Corelocation/CoreLocation.h>
 
 @interface ViewController () {
     CLLocationCoordinate2D _locationCoordinate;
 }
+// TODO Add CollectionView reference and populate collectionview
 @property (nonatomic, strong) IBOutlet UILabel *lastUpdatedLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
+
+@property (nonatomic, strong) NSFetchedResultsController<ForecastDataPoint *> *resultsController;
+
 @end
 
 @implementation ViewController
 
 - (void) viewDidLoad {
     [super viewDidLoad];
+
+    [self setupFetchedResultsController];
 
     // Use corelocation to get latitude and longitude
     self.locationManager = [[CLLocationManager alloc] init];
@@ -30,6 +38,39 @@
     [super viewWillAppear: animated];
 
     [self checkLocationAuthorization];
+}
+
+- (void) setupFetchedResultsController {
+    // Get the newest ForecastLocation object
+    NSFetchRequest<ForecastLocation *> *locationFetchRequest = [ForecastLocation fetchRequest];
+    locationFetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"creationDate" ascending: YES]];
+
+    NSError *error = nil;
+    NSArray <ForecastLocation *>*results = [_dataController.viewContext executeFetchRequest:locationFetchRequest error:&error];
+    if (!results) {
+        NSLog(@"Error fetching ForecastLocation objects: %@\n%@", [error localizedDescription], [error userInfo]);
+        abort();         // TODO: Alert user to the error
+    }
+
+    // Setup fetchedresultscontroller with the list of ForecastDataPoint objects
+    ForecastLocation *forecastLocation = [results firstObject];
+
+    if (forecastLocation) {
+        NSFetchRequest *fetchRequest = [ForecastDataPoint fetchRequest];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat: @"location == %@", forecastLocation];
+        fetchRequest.predicate = predicate;
+        fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"time" ascending: YES]];
+
+        self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: _dataController.viewContext
+                sectionNameKeyPath: nil cacheName: nil];        // TODO add a cachename
+        _resultsController.delegate = self;
+
+        error = nil;
+        [_resultsController performFetch: &error];
+        if (error) {
+            NSLog(@"The fetch could not be performed: %@", error.localizedDescription);
+        }
+    }
 }
 
 - (void) placeNameForCurrentLocation {
@@ -75,6 +116,33 @@
 
 - (void) locationManager: (CLLocationManager *)manager didChangeAuthorizationStatus: (CLAuthorizationStatus)status {
     [self  checkLocationAuthorization];
+}
+
+#pragma mark - NSFetchedResultsControllerDelegate
+
+- (void) controller: (NSFetchedResultsController *)controller didChangeSection: (id <NSFetchedResultsSectionInfo>)sectionInfo
+            atIndex: (NSUInteger)sectionIndex forChangeType: (NSFetchedResultsChangeType)type {
+
+}
+
+- (void) controller: (NSFetchedResultsController *)controller didChangeObject: (id)anObject
+        atIndexPath: (nullable NSIndexPath *)indexPath forChangeType: (NSFetchedResultsChangeType)type
+       newIndexPath: (nullable NSIndexPath *)newIndexPath {
+
+    switch (type){
+        case NSFetchedResultsChangeInsert:
+            // TODO update collectionview
+            break;
+        case NSFetchedResultsChangeDelete:
+            break;
+        case NSFetchedResultsChangeMove:
+            break;
+        case NSFetchedResultsChangeUpdate:
+            break;
+    }
+
+
+
 }
 
 
