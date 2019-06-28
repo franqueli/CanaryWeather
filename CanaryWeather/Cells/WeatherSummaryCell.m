@@ -21,6 +21,19 @@
 
 @implementation WeatherSummaryCell
 
++ (NSDateFormatter *) dateFormatter {
+    static NSDateFormatter *formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.timeStyle = NSDateFormatterNoStyle;
+        formatter.dateStyle = NSDateFormatterShortStyle;
+        formatter.doesRelativeDateFormatting = YES;
+    });
+
+    return formatter;
+}
+
 - (void) awakeFromNib {
     [super awakeFromNib];
 
@@ -41,7 +54,7 @@
     NSString *iconImageName = nil;
     switch (_forecastData.weatherType) {
         case WeatherTypeUnknown:
-            iconImageName = nil;
+            iconImageName = @"Rainbow";
             break;
         case WeatherTypeSunny:
             iconImageName = @"Sunny";
@@ -64,9 +77,11 @@
         _iconImageView.image = [UIImage imageNamed: iconImageName];
     }
 
-    _dayLabel.text = [NSString stringWithFormat: @"%@", _forecastData.time];
-    _highTempLabel.text = [NSString stringWithFormat: @"H: %.1f", _forecastData.temperatureMax];
-    _lowTempLabel.text = [NSString stringWithFormat: @"H: %.1f", _forecastData.temperatureMin];
+    NSDateFormatter *formatter = [WeatherSummaryCell dateFormatter];
+
+    _dayLabel.text = [formatter stringFromDate: _forecastData.time];
+    _highTempLabel.text = [NSString stringWithFormat: @"H: %.0f°", _forecastData.temperatureMax];
+    _lowTempLabel.text = [NSString stringWithFormat: @"L: %.0f°", _forecastData.temperatureMin];
     _conditionsLabel.text = _forecastData.summary;
 }
 
