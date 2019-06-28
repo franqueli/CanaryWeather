@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "ForecastDataSource.h"
+#import "CanaryWeather+CoreDataModel.h"
+#import "DataController.h"
 
 static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/%@/%.4f,%.4f?exclude=minutely,alerts,flags,hourly";
 
@@ -44,11 +46,80 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
             return;
         }
 
-        NSLog(@"*** Data: %@ ***", [[NSString alloc] initWithData: data encoding: NSUTF8StringEncoding]);
+        [self processResponseData: data];
     }];
 
     [task resume];
 }
 
+- (void) processResponseData:(NSData *)responseData {
+    // Make sure this is processing on a background thread
+#ifdef DEBUG
+    NSLog(@"*** Data: %@ ***", [[NSString alloc] initWithData: responseData encoding: NSUTF8StringEncoding]);
+#endif
+
+    NSError *error = nil;
+    id jsonRoot = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    if (error) {
+        NSLog(@"Error processing JSON %@", error.localizedDescription);
+        return;
+    }
+
+    if (![jsonRoot isKindOfClass: [NSDictionary class]]) {
+        NSLog(@"Error processing JSON. Expected dictionary root object. %@", error.localizedDescription);
+        return;
+    }
+
+    NSDictionary *jsonDict = (NSDictionary *)jsonRoot;
+
+    ForecastLocation *forecastLocation = [self forecastLocationWithDictionary: jsonDict];
+
+    NSArray<NSDictionary *> *dailyData = jsonDict[@"daily"][@"data"];
+
+    for (NSDictionary *infoForDay in dailyData) {
+        [self addForecastWithInfo:infoForDay forLocation: forecastLocation];
+    }
+}
+
+- (ForecastLocation *) forecastLocationWithDictionary: (NSDictionary *)props {
+    // forecastLocation should have a date
+    ForecastLocation *forecastLocation = [[ForecastLocation alloc] initWithContext: _dataController.backgroundContext];
+    NSNumber *latitude = props[@"latitude"];
+    NSNumber *longitude = props[@"longitude"];
+    NSString *timezone = props[@"timezone"];
+
+    forecastLocation.latitude = [latitude doubleValue];
+    forecastLocation.longitude = [longitude doubleValue];
+    forecastLocation.timezone = timezone;
+
+    NSError *error = nil;
+    [_dataController.backgroundContext save: &error];
+    if (error) {
+        // TODO : how should we handle this? Return nil?
+        NSLog(@"Error saving ForecastLocation");
+    }
+
+    return forecastLocation;
+}
+- (ForecastDataPoint *) addForecastWithInfo:(NSDictionary *)infoForDay forLocation: (ForecastLocation *)forecastLocation {
+    ForecastDataPoint *forecastDataPoint = [[ForecastDataPoint alloc] initWithContext: _dataController.backgroundContext];
+
+    forecastDataPoint.icon = infoForDay[@"icon"];
+    forecastDataPoint.summary = infoForDay[@"summary"];
+    forecastDataPoint.temperatureMax = [(NSNumber *)infoForDay[@"temperatureMax"] doubleValue];
+    forecastDataPoint.temperatureMin = [(NSNumber *)infoForDay[@"temperatureMin"] doubleValue];
+    forecastDataPoint.time = [[NSDate alloc] initWithTimeIntervalSinceReferenceDate: [(NSNumber *)infoForDay[@"time"] integerValue]];
+
+    forecastDataPoint.location = forecastLocation;
+
+    NSError *error = nil;
+    [_dataController.backgroundContext save: &error];
+    if (error) {
+        // TODO : how should we handle this? Return nil?
+        NSLog(@"Error saving ForecastDataPoint");
+    }
+
+    return forecastDataPoint;
+}
 
 @end

@@ -9,6 +9,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @class ForecastDataSource;
+@class DataController;
 
 @protocol ForecastDataSourceDelegate
 
@@ -19,6 +20,8 @@
 
 
 @interface ForecastDataSource : NSObject
+
+@property (nonatomic, strong) DataController *dataController;
 
 - (void) loadForecastForLatitude: (double)latitude longitude: (double)longitude;
 
