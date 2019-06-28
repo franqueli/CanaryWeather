@@ -12,7 +12,8 @@
 
 @class DataController;
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate>
+@interface ViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate,
+    UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) DataController *dataController;
 

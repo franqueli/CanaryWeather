@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "CanaryWeather+CoreDataModel.h"
 #import "DataController.h"
+#import "WeatherSummaryCell.h"
 #import <Corelocation/CoreLocation.h>
 
 @interface ViewController () {
@@ -140,9 +141,49 @@
         case NSFetchedResultsChangeUpdate:
             break;
     }
+}
+
+/*
+ *
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return fetchedResultsController.sections?.count ?? 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return fetchedResultsController.sections?[section].numberOfObjects ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let aNotebook = fetchedResultsController.object(at: indexPath)
 
 
 
+ *
+ */
+
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger) collectionView: (UICollectionView *)collectionView numberOfItemsInSection: (NSInteger)section {
+    return [_resultsController.sections[section] numberOfObjects];
+}
+
+- (__kindof UICollectionViewCell *) collectionView: (UICollectionView *)collectionView cellForItemAtIndexPath: (NSIndexPath *)indexPath {
+    ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
+
+    WeatherSummaryCell *weatherCell = [collectionView dequeueReusableCellWithReuseIdentifier: @"WeatherCell" forIndexPath: indexPath];
+    weatherCell.forecastData = forecastDataPoint;
+
+    return weatherCell;
+}
+
+- (CGSize) collectionView: (UICollectionView *)collectionView layout: (UICollectionViewLayout *)collectionViewLayout
+   sizeForItemAtIndexPath: (NSIndexPath *)indexPath {
+
+    CGSize result = CGSizeMake(collectionView.frame.size.width - 10.0, 60.0);
+
+    return result;
 }
 
 
