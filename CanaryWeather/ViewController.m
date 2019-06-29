@@ -63,7 +63,7 @@
 - (void) setupFetchedResultsController {
     // Get the newest ForecastLocation object
     NSFetchRequest<ForecastLocation *> *locationFetchRequest = [ForecastLocation fetchRequest];
-    locationFetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"creationDate" ascending: YES]];
+    locationFetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"creationDate" ascending: NO]];
 
     NSError *error = nil;
     NSArray <ForecastLocation *>*results = [_dataController.viewContext executeFetchRequest:locationFetchRequest error:&error];
@@ -213,19 +213,35 @@
 }
 
 - (void) datasource: (ForecastDataSource *)dataSource didFailWithInfo: (NSDictionary *)info {
+    BOOL allowRetry = YES;
+    NSString *errorMessage = @"Service call failed. Tap ok to try again";
+    id error = info[@"error"];
+
+
+    if (error && [error isKindOfClass: [NSError class]]) {
+        NSInteger errorCode = [(NSError *)error code];
+        if (errorCode == NSURLErrorNotConnectedToInternet) {
+            allowRetry = NO;
+            errorMessage = [(NSError *)error localizedDescription];
+        }
+    }
+
     self.alertVC = [UIAlertController alertControllerWithTitle:@"Error"
-                                   message:@"Service call failed. Tap ok to try again"
+                                   message: errorMessage
                                    preferredStyle:UIAlertControllerStyleAlert];
 
-    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
-                                                          handler: ^(UIAlertAction *action) {
-                                                              [self loadForecastData];
-                                                          }];
+    if (allowRetry) {
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
+                                                              handler: ^(UIAlertAction *action) {
+                                                                  [self loadForecastData];
+                                                              }];
+        [_alertVC addAction:defaultAction];
+    }
 
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: @"Cancel" style: UIAlertActionStyleCancel
                                                          handler: nil];
 
-    [_alertVC addAction:defaultAction];
+
     [_alertVC addAction:cancelAction];
 
     [self presentViewController:_alertVC animated:YES completion:nil];

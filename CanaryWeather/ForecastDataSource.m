@@ -32,9 +32,8 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
         if (error) {
-            // TODO: Call back failed on delegate
-            NSLog(@"*** Forecast API Failed: %@", error.localizedDescription);
-            [self notifyDelegateFailedWithInfo: @{@"error": error.localizedDescription}];
+            NSLog(@"*** Forecast API Failed: %@", error);
+            [self notifyDelegateFailedWithInfo: @{@"error": error}];
             return;
         }
 
