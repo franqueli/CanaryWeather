@@ -24,6 +24,7 @@
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
 @property (nonatomic, strong) NSFetchedResultsController<ForecastDataPoint *> *resultsController;
+@property (nonatomic, strong) UIAlertController *alertVC;
 
 @end
 
@@ -121,6 +122,12 @@
     [_locationManager startUpdatingLocation];
 }
 
+- (void) loadForecastData {
+    self.forecastDataSource = [[ForecastDataSource alloc] init];
+    _forecastDataSource.delegate = self;
+    _forecastDataSource.dataController = _dataController;
+    [_forecastDataSource loadForecastForLatitude: _locationCoordinate.latitude longitude: _locationCoordinate.longitude];
+}
 
 #pragma mark - CLLocationManagerDelegate
 
@@ -130,11 +137,7 @@
 
     [manager stopUpdatingLocation];
 
-    self.forecastDataSource = [[ForecastDataSource alloc] init];
-    _forecastDataSource.delegate = self;
-    _forecastDataSource.dataController = _dataController;
-    [_forecastDataSource loadForecastForLatitude: _locationCoordinate.latitude longitude: _locationCoordinate.longitude];
-
+    [self loadForecastData];
 
     [self placeNameForCurrentLocation];
 }
@@ -210,7 +213,22 @@
 }
 
 - (void) datasource: (ForecastDataSource *)dataSource didFailWithInfo: (NSDictionary *)info {
-    // TODO indicate error
+    self.alertVC = [UIAlertController alertControllerWithTitle:@"Error"
+                                   message:@"Service call failed. Tap ok to try again"
+                                   preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *defaultAction = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault
+                                                          handler: ^(UIAlertAction *action) {
+                                                              [self loadForecastData];
+                                                          }];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle: @"Cancel" style: UIAlertActionStyleCancel
+                                                         handler: nil];
+
+    [_alertVC addAction:defaultAction];
+    [_alertVC addAction:cancelAction];
+
+    [self presentViewController:_alertVC animated:YES completion:nil];
 }
 
 
