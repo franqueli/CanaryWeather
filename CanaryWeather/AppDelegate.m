@@ -13,8 +13,6 @@
 
 @interface AppDelegate ()
 
-@property (nonatomic, strong) ForecastDataSource *forecastDataSource;
-
 @end
 
 @implementation AppDelegate
@@ -25,19 +23,9 @@
     self.dataController = [[DataController alloc] initWithModelName: @"CanaryWeather"];
     [_dataController load: nil];
 
-    // TODO: cleanup remove and add to our main view controller
-    self.forecastDataSource = [[ForecastDataSource alloc] init];
-    _forecastDataSource.dataController = _dataController;
-    [_forecastDataSource loadForecastForLatitude: 0.0 longitude: 0.0];
-
-//    let navigationController = window?.rootViewController as! UINavigationController
-//    let notebooksListViewController = navigationController.topViewController as! NotebooksListViewController
-//    notebooksListViewController.dataController = dataController
-
     UINavigationController *navigationController = (UINavigationController *)_window.rootViewController;
     ViewController *vc = (ViewController *)navigationController.topViewController;
     vc.dataController = _dataController;
-
 
     return YES;
 }

@@ -21,6 +21,7 @@
 
 @interface ForecastDataSource : NSObject
 
+@property (nonatomic, weak) id <ForecastDataSourceDelegate> delegate;
 @property (nonatomic, strong) DataController *dataController;
 
 - (void) loadForecastForLatitude: (double)latitude longitude: (double)longitude;

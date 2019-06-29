@@ -150,6 +150,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="lUt-ea-Tfx"/>
                     <connections>
+                        <outlet property="forecastCollectionView" destination="uwQ-To-VRZ" id="7WZ-xt-8Yc"/>
                         <outlet property="lastUpdatedLabel" destination="3Pm-M9-QUA" id="ZFM-58-X7l"/>
                     </connections>
                 </viewController>

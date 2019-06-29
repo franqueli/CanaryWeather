@@ -10,12 +10,16 @@
 #import "CanaryWeather+CoreDataModel.h"
 #import "DataController.h"
 #import "WeatherSummaryCell.h"
+#import "ForecastDataSource.h"
 #import <Corelocation/CoreLocation.h>
 
 @interface ViewController () {
     CLLocationCoordinate2D _locationCoordinate;
 }
-// TODO Add CollectionView reference and populate collectionview
+
+@property (nonatomic, strong) ForecastDataSource *forecastDataSource;
+
+@property (nonatomic, strong) IBOutlet UICollectionView *forecastCollectionView;
 @property (nonatomic, strong) IBOutlet UILabel *lastUpdatedLabel;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 
@@ -24,6 +28,20 @@
 @end
 
 @implementation ViewController
+
++ (NSDateFormatter *) dateFormatter {
+    static NSDateFormatter *formatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formatter = [[NSDateFormatter alloc] init];
+        formatter.timeStyle = NSDateFormatterShortStyle;
+        formatter.dateStyle = NSDateFormatterShortStyle;
+        formatter.doesRelativeDateFormatting = YES;
+    });
+
+    return formatter;
+}
+
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -57,6 +75,8 @@
     ForecastLocation *forecastLocation = [results firstObject];
 
     if (forecastLocation) {
+        _lastUpdatedLabel.text = [NSString stringWithFormat: @"Last Updated: %@", [[ViewController dateFormatter] stringFromDate: forecastLocation.creationDate]];
+
         NSFetchRequest *fetchRequest = [ForecastDataPoint fetchRequest];
         NSPredicate *predicate = [NSPredicate predicateWithFormat: @"location == %@", forecastLocation];
         fetchRequest.predicate = predicate;
@@ -108,10 +128,14 @@
     CLLocation *lastLocation = locations.lastObject;
     _locationCoordinate = lastLocation.coordinate;
 
-    NSLog(@"*** Latitude: %f Longitude: %f ***", _locationCoordinate.latitude, _locationCoordinate.longitude);
     [manager stopUpdatingLocation];
-    // TODO: Stop spinner
-    // TODO: Get location name from Coordinates
+
+    self.forecastDataSource = [[ForecastDataSource alloc] init];
+    _forecastDataSource.delegate = self;
+    _forecastDataSource.dataController = _dataController;
+    [_forecastDataSource loadForecastForLatitude: _locationCoordinate.latitude longitude: _locationCoordinate.longitude];
+
+
     [self placeNameForCurrentLocation];
 }
 
@@ -175,6 +199,18 @@
     CGSize result = CGSizeMake(collectionView.frame.size.width, 90.0);
 
     return result;
+}
+
+#pragma mark - ForecastDatasourceDelegate
+
+- (void) datasource: (ForecastDataSource *)dataSource didFinishWithInfo: (NSDictionary *)info {
+    [self setupFetchedResultsController];
+
+    [_forecastCollectionView reloadData];
+}
+
+- (void) datasource: (ForecastDataSource *)dataSource didFailWithInfo: (NSDictionary *)info {
+    // TODO indicate error
 }
 
 

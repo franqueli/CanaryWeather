@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "ForecastDataSource.h"
 #import "CanaryWeather+CoreDataModel.h"
 #import "DataController.h"
 
 static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/%@/%.4f,%.4f?exclude=minutely,alerts,flags,hourly";
 
-@interface ForecastDataSource()
+@interface ForecastDataSource ()
 
 @end
 
@@ -21,28 +22,25 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
 @implementation ForecastDataSource
 
 - (void) loadForecastForLatitude: (double)latitude longitude: (double)longitude {
-    latitude = 40.7128;
-    longitude = -74.0060;
-
-    // TODO Get API Key from elsewhere, maybe a info plist key
-    NSString *forecastURLString = [NSString stringWithFormat: FORECAST_URL_FORMAT, @"", latitude, longitude];
+    NSString *apiKey = [[NSBundle mainBundle] infoDictionary][@"ForecastIOKey"];
+    NSString *forecastURLString = [NSString stringWithFormat: FORECAST_URL_FORMAT, apiKey, latitude, longitude];
 
     NSURL *forecastURL = [[NSURL alloc] initWithString: forecastURLString];
 
     NSLog(@"URL: %@", forecastURL);
-    // FIXME specify application/json accept header
     NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL: forecastURL completionHandler: ^(NSData *data, NSURLResponse *response, NSError *error) {
-        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;      // TODO add check for type
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
         if (error) {
             // TODO: Call back failed on delegate
             NSLog(@"*** Forecast API Failed: %@", error.localizedDescription);
+            [self notifyDelegateFailedWithInfo: @{@"error": error.localizedDescription}];
             return;
         }
 
         if ([httpResponse statusCode] != 200) {
             NSLog(@"*** Forecast API Failed Code: %ld", (long)[httpResponse statusCode]);
-            // TODO: Call back failed on delegate
+            [self notifyDelegateFailedWithInfo: @{@"error": [NSString stringWithFormat: @"Bad http status: %ld", (long)[httpResponse statusCode]]}];
             return;
         }
 
@@ -52,21 +50,23 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     [task resume];
 }
 
-- (void) processResponseData:(NSData *)responseData {
+- (void) processResponseData: (NSData *)responseData {
     // Make sure this is processing on a background thread
 #ifdef DEBUG
     NSLog(@"*** Data: %@ ***", [[NSString alloc] initWithData: responseData encoding: NSUTF8StringEncoding]);
 #endif
 
     NSError *error = nil;
-    id jsonRoot = [NSJSONSerialization JSONObjectWithData:responseData options:0 error:&error];
+    id jsonRoot = [NSJSONSerialization JSONObjectWithData: responseData options: 0 error: &error];
     if (error) {
         NSLog(@"Error processing JSON %@", error.localizedDescription);
+        [self notifyDelegateFailedWithInfo: @{@"error": error.localizedDescription}];
         return;
     }
 
     if (![jsonRoot isKindOfClass: [NSDictionary class]]) {
-        NSLog(@"Error processing JSON. Expected dictionary root object. %@", error.localizedDescription);
+        NSLog(@"Error processing JSON. Expected dictionary root object.");
+        [self notifyDelegateFailedWithInfo: @{@"error": @"Unexpected response"}];
         return;
     }
 
@@ -77,8 +77,22 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     NSArray<NSDictionary *> *dailyData = jsonDict[@"daily"][@"data"];
 
     for (NSDictionary *infoForDay in dailyData) {
-        [self addForecastWithInfo:infoForDay forLocation: forecastLocation];
+        [self addForecastWithInfo: infoForDay forLocation: forecastLocation];
     }
+
+    [self notifyDelegateFinishedWithInfo: @{@"forecast": forecastLocation}];
+}
+
+- (void) notifyDelegateFinishedWithInfo: (NSDictionary *)info {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_delegate datasource: self didFinishWithInfo: info];
+    });
+}
+
+- (void) notifyDelegateFailedWithInfo: (NSDictionary *)info {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_delegate datasource: self didFailWithInfo: info];
+    });
 }
 
 - (ForecastLocation *) forecastLocationWithDictionary: (NSDictionary *)props {
@@ -102,7 +116,8 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
 
     return forecastLocation;
 }
-- (ForecastDataPoint *) addForecastWithInfo:(NSDictionary *)infoForDay forLocation: (ForecastLocation *)forecastLocation {
+
+- (ForecastDataPoint *) addForecastWithInfo: (NSDictionary *)infoForDay forLocation: (ForecastLocation *)forecastLocation {
     ForecastDataPoint *forecastDataPoint = [[ForecastDataPoint alloc] initWithContext: _dataController.backgroundContext];
 
     forecastDataPoint.icon = infoForDay[@"icon"];

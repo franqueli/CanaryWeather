@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import <CoreLocation/CoreLocation.h>
 #import <CoreData/CoreData.h>
+#import "ForecastDataSource.h"
 
 @class DataController;
 
 @interface ViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate,
-    UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+    UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ForecastDataSourceDelegate>
 
 @property (nonatomic, strong) DataController *dataController;
 
