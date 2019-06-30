@@ -84,13 +84,13 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
 
 - (void) notifyDelegateFinishedWithInfo: (NSDictionary *)info {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_delegate datasource: self didFinishWithInfo: info];
+        [self->_delegate datasource: self didFinishWithInfo: info];
     });
 }
 
 - (void) notifyDelegateFailedWithInfo: (NSDictionary *)info {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [_delegate datasource: self didFailWithInfo: info];
+        [self->_delegate datasource: self didFailWithInfo: info];
     });
 }
 
