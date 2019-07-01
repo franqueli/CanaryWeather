@@ -73,6 +73,13 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
 
     ForecastLocation *forecastLocation = [self forecastLocationWithDictionary: jsonDict];
 
+    if (forecastLocation == nil) {
+        [self resetContext];
+        [self notifyDelegateFailedWithInfo: @{@"error": @"Error saving data"}];
+
+        return;
+    }
+
     NSArray<NSDictionary *> *dailyData = jsonDict[@"daily"][@"data"];
 
     for (NSDictionary *infoForDay in dailyData) {
@@ -135,6 +142,10 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     }
 
     return forecastDataPoint;
+}
+
+- (void) resetContext {
+    [_dataController.backgroundContext reset];
 }
 
 @end

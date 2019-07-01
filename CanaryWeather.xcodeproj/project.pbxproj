@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */; };
 		6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C422C41E4B0080793D /* AppDelegate.m */; };
 		6CC959C822C41E4B0080793D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C722C41E4B0080793D /* ViewController.m */; };
 		6CC959CB22C41E4B0080793D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC959C922C41E4B0080793D /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 		6CCB0B2D22C6456D009DB81C /* ForecastDataPoint+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CCB0B2C22C6456D009DB81C /* ForecastDataPoint+Extension.m */; };
 		6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */; };
 		D37EA10DA16F353E33FBCC54 /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37EABC576F733F123CC0677 /* DataController.m */; };
+		D37EAC2AE125919B0DF83555 /* ForecastViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D37EA77FB3A2E81C7AEAD8F7 /* ForecastViewModel.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +42,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6C873B1822CAC1E0007361B4 /* ForecastDetailTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDetailTableViewController.h; sourceTree = "<group>"; };
+		6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDetailTableViewController.m; sourceTree = "<group>"; };
 		6CC959C022C41E4B0080793D /* CanaryWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanaryWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC959C322C41E4B0080793D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6CC959C422C41E4B0080793D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -64,6 +68,8 @@
 		6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDataSource.m; sourceTree = "<group>"; };
 		6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDataSource.h; sourceTree = "<group>"; };
 		D37EA1C540A6021A109B934A /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
+		D37EA6E5763423A737C5131F /* ForecastViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForecastViewModel.h; sourceTree = "<group>"; };
+		D37EA77FB3A2E81C7AEAD8F7 /* ForecastViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForecastViewModel.m; sourceTree = "<group>"; };
 		D37EABC576F733F123CC0677 /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -128,6 +134,8 @@
 				6CCB0B2722C642DF009DB81C /* Model */,
 				6CC959C322C41E4B0080793D /* AppDelegate.h */,
 				6CC959C422C41E4B0080793D /* AppDelegate.m */,
+				6C873B1822CAC1E0007361B4 /* ForecastDetailTableViewController.h */,
+				6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */,
 				6CC959C622C41E4B0080793D /* ViewController.h */,
 				6CC959C722C41E4B0080793D /* ViewController.m */,
 				6CC959C922C41E4B0080793D /* Main.storyboard */,
@@ -139,6 +147,8 @@
 				6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */,
 				D37EABC576F733F123CC0677 /* DataController.m */,
 				D37EA1C540A6021A109B934A /* DataController.h */,
+				D37EA77FB3A2E81C7AEAD8F7 /* ForecastViewModel.m */,
+				D37EA6E5763423A737C5131F /* ForecastViewModel.h */,
 			);
 			path = CanaryWeather;
 			sourceTree = "<group>";
@@ -301,6 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */,
 				6CC959CE22C41E4B0080793D /* CanaryWeather.xcdatamodeld in Sources */,
 				6CC959C822C41E4B0080793D /* ViewController.m in Sources */,
 				6CC959D622C41E4C0080793D /* main.m in Sources */,
@@ -309,6 +320,7 @@
 				6CCB0B2A22C64327009DB81C /* WeatherSummaryCell.m in Sources */,
 				D37EA10DA16F353E33FBCC54 /* DataController.m in Sources */,
 				6CCB0B2D22C6456D009DB81C /* ForecastDataPoint+Extension.m in Sources */,
+				D37EAC2AE125919B0DF83555 /* ForecastViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

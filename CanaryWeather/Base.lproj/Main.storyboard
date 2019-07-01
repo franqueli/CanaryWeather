@@ -159,10 +159,10 @@
             </objects>
             <point key="canvasLocation" x="-527.20000000000005" y="-8.1280788177339911"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Forecast Detail Table View Controller-->
         <scene sceneID="mLZ-DQ-fD3">
             <objects>
-                <tableViewController id="7EP-vf-bQK" sceneMemberID="viewController">
+                <tableViewController id="7EP-vf-bQK" customClass="ForecastDetailTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="rBy-0f-dEd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -277,6 +277,13 @@
                             <outlet property="delegate" destination="7EP-vf-bQK" id="4o0-Vi-hr1"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="conditionsImageView" destination="ycv-vH-Ko0" id="O16-Xo-bYy"/>
+                        <outlet property="conditionsLabels" destination="oT6-dr-G8c" id="Bcq-MF-EW9"/>
+                        <outlet property="dateLabel" destination="SG9-5J-nyz" id="1sW-DS-GZ1"/>
+                        <outlet property="highTempLabel" destination="HOu-dX-Uny" id="RYS-xj-A2g"/>
+                        <outlet property="lowTempLabel" destination="GVO-nH-ZHL" id="tzw-6J-ysL"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AXX-cZ-3XN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

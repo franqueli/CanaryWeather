@@ -8,6 +8,7 @@
 
 #import "WeatherSummaryCell.h"
 #import "ForecastDataPoint+Extension.h"
+#import "ForecastViewModel.h"
 
 @interface WeatherSummaryCell ()
 
@@ -51,31 +52,7 @@
 
 
 - (void) updateUI {
-    NSString *iconImageName = nil;
-    switch (_forecastData.weatherType) {
-        case WeatherTypeUnknown:
-            iconImageName = @"Rainbow";
-            break;
-        case WeatherTypeSunny:
-            iconImageName = @"Sunny";
-            break;
-        case WeatherTypeCloudy:
-            iconImageName = @"Cloudy";
-            break;
-        case WeatherTypeRain:
-            iconImageName = @"Rainy";
-            break;
-        case WeatherTypeSnow:
-            iconImageName = @"Cloudy_Snowy";
-            break;
-        case WeatherTypeWind:
-            iconImageName = @"Sunny_Foggy";
-            break;
-    }
-
-    if (iconImageName) {
-        _iconImageView.image = [UIImage imageNamed: iconImageName];
-    }
+    _iconImageView.image = [ForecastViewModel imageForWeatherType: _forecastData.weatherType];
 
     NSDateFormatter *formatter = [WeatherSummaryCell dateFormatter];
 
