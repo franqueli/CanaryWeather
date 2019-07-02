@@ -44,7 +44,28 @@
 }
 
 + (NSString *) captionForWeatherType: (WeatherType)weatherType {
-    return nil;
+    NSString *caption = @"";
+    switch (weatherType){
+        case WeatherTypeUnknown:
+            break;
+        case WeatherTypeSunny:
+            caption = @"Sunny";
+            break;
+        case WeatherTypeCloudy:
+            caption = @"Cloudy";
+            break;
+        case WeatherTypeRain:
+            caption = @"Rain";
+            break;
+        case WeatherTypeSnow:
+            caption = @"Snow";
+            break;
+        case WeatherTypeWind:
+            caption = @"Windy";
+            break;
+    }
+
+    return caption;
 }
 
 

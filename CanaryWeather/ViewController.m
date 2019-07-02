@@ -11,6 +11,7 @@
 #import "DataController.h"
 #import "WeatherSummaryCell.h"
 #import "ForecastDataSource.h"
+#import "ForecastDetailTableViewController.h"
 #import <Corelocation/CoreLocation.h>
 
 @interface ViewController () {
@@ -58,6 +59,20 @@
     [super viewWillAppear: animated];
 
     [self checkLocationAuthorization];
+}
+
+- (void) prepareForSegue: (UIStoryboardSegue *)segue sender: (nullable id)sender {
+    [super prepareForSegue: segue sender: sender];
+
+    if ([segue.identifier isEqualToString: @"ForecastDetailSegue"]) {
+        if ([sender isKindOfClass: [UICollectionViewCell class]]) {
+            NSIndexPath *indexPath = [_forecastCollectionView indexPathForCell: (UICollectionViewCell *)sender];
+            ForecastDetailTableViewController *detailViewController = segue.destinationViewController;
+
+            ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
+            detailViewController.forecastDataPoint = forecastDataPoint;
+        }
+    }
 }
 
 - (void) setupFetchedResultsController {
@@ -203,6 +218,17 @@
 
     return result;
 }
+
+
+- (void) collectionView: (UICollectionView *)collectionView didSelectItemAtIndexPath: (NSIndexPath *)indexPath {
+    ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
+
+    NSLog(@"*** ForeCast: %@ ***", forecastDataPoint.summary);
+
+    // TODO perform segue
+
+}
+
 
 #pragma mark - ForecastDatasourceDelegate
 

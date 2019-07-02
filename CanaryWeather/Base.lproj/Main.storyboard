@@ -121,7 +121,7 @@
                                                     <outlet property="highTempLabel" destination="U0e-dY-bed" id="O8V-WA-7ct"/>
                                                     <outlet property="iconImageView" destination="1JY-Qb-k8A" id="m1i-cM-KPd"/>
                                                     <outlet property="lowTempLabel" destination="nKb-wa-AcH" id="D9U-S7-STm"/>
-                                                    <segue destination="7EP-vf-bQK" kind="show" id="ZfW-dC-kN4"/>
+                                                    <segue destination="7EP-vf-bQK" kind="show" identifier="ForecastDetailSegue" id="ZfW-dC-kN4"/>
                                                 </connections>
                                             </collectionViewCell>
                                         </cells>
