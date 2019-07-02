@@ -130,6 +130,18 @@
 
 - (void) checkLocationAuthorization {
     CLAuthorizationStatus authorizationStatus = CLLocationManager.authorizationStatus;
+    if (authorizationStatus == kCLAuthorizationStatusDenied) {
+        self.alertVC = [UIAlertController alertControllerWithTitle: @"Location access denied"
+                                                           message: @"Access to location is required to use this application. Please go to settings and allow location access."
+                                                    preferredStyle: UIAlertControllerStyleAlert];
+
+        UIAlertAction *defaultAction = [UIAlertAction actionWithTitle: @"OK" style: UIAlertActionStyleDefault handler: nil];
+        [_alertVC addAction: defaultAction];
+        [self presentViewController: _alertVC animated: YES completion: nil];
+
+        return;
+    }
+
     if (authorizationStatus != kCLAuthorizationStatusAuthorizedAlways
             && authorizationStatus != kCLAuthorizationStatusAuthorizedWhenInUse) {
         // Alert user that we need location to work
