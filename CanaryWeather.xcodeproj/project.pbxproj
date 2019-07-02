@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */; };
+		6C873B1E22CBD017007361B4 /* WeatherTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C873B1D22CBD017007361B4 /* WeatherTransitionAnimator.m */; };
 		6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C422C41E4B0080793D /* AppDelegate.m */; };
 		6CC959C822C41E4B0080793D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C722C41E4B0080793D /* ViewController.m */; };
 		6CC959CB22C41E4B0080793D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC959C922C41E4B0080793D /* Main.storyboard */; };
@@ -44,6 +45,8 @@
 /* Begin PBXFileReference section */
 		6C873B1822CAC1E0007361B4 /* ForecastDetailTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastDetailTableViewController.h; sourceTree = "<group>"; };
 		6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastDetailTableViewController.m; sourceTree = "<group>"; };
+		6C873B1C22CBD017007361B4 /* WeatherTransitionAnimator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeatherTransitionAnimator.h; sourceTree = "<group>"; };
+		6C873B1D22CBD017007361B4 /* WeatherTransitionAnimator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherTransitionAnimator.m; sourceTree = "<group>"; };
 		6CC959C022C41E4B0080793D /* CanaryWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanaryWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC959C322C41E4B0080793D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6CC959C422C41E4B0080793D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -98,6 +101,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C873B1B22CBCD2E007361B4 /* CustomTransitionAnimator */ = {
+			isa = PBXGroup;
+			children = (
+				6C873B1C22CBD017007361B4 /* WeatherTransitionAnimator.h */,
+				6C873B1D22CBD017007361B4 /* WeatherTransitionAnimator.m */,
+			);
+			path = CustomTransitionAnimator;
+			sourceTree = "<group>";
+		};
 		6C92092722C63E6B00B6C4E5 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +142,7 @@
 		6CC959C222C41E4B0080793D /* CanaryWeather */ = {
 			isa = PBXGroup;
 			children = (
+				6C873B1B22CBCD2E007361B4 /* CustomTransitionAnimator */,
 				6C92092722C63E6B00B6C4E5 /* Cells */,
 				6CCB0B2722C642DF009DB81C /* Model */,
 				6CC959C322C41E4B0080793D /* AppDelegate.h */,
@@ -313,6 +326,7 @@
 			files = (
 				6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */,
 				6CC959CE22C41E4B0080793D /* CanaryWeather.xcdatamodeld in Sources */,
+				6C873B1E22CBD017007361B4 /* WeatherTransitionAnimator.m in Sources */,
 				6CC959C822C41E4B0080793D /* ViewController.m in Sources */,
 				6CC959D622C41E4C0080793D /* main.m in Sources */,
 				6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */,

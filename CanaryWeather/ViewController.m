@@ -12,9 +12,10 @@
 #import "WeatherSummaryCell.h"
 #import "ForecastDataSource.h"
 #import "ForecastDetailTableViewController.h"
+#import "WeatherTransitionAnimator.h"
 #import <Corelocation/CoreLocation.h>
 
-@interface ViewController () {
+@interface ViewController () <UINavigationControllerDelegate> { // TODO remove transitioning delegate
     CLLocationCoordinate2D _locationCoordinate;
 }
 
@@ -26,6 +27,8 @@
 
 @property (nonatomic, strong) NSFetchedResultsController<ForecastDataPoint *> *resultsController;
 @property (nonatomic, strong) UIAlertController *alertVC;
+
+//@property (nonatomic, strong) WeatherTransitioningDelegate *weatherTransitioningDelegate;
 
 @end
 
@@ -53,6 +56,8 @@
     // Use corelocation to get latitude and longitude
     self.locationManager = [[CLLocationManager alloc] init];
     _locationManager.delegate = self;
+
+    self.navigationController.delegate = self;
 }
 
 - (void) viewWillAppear: (BOOL)animated {
@@ -161,40 +166,40 @@
     [self  checkLocationAuthorization];
 }
 
-#pragma mark - NSFetchedResultsControllerDelegate
-
-- (void) controller: (NSFetchedResultsController *)controller didChangeSection: (id <NSFetchedResultsSectionInfo>)sectionInfo
-            atIndex: (NSUInteger)sectionIndex forChangeType: (NSFetchedResultsChangeType)type {
-
-    NSLog(@"**** FC SectionDidChange ****");
-}
-
-- (void) controller: (NSFetchedResultsController *)controller didChangeObject: (id)anObject
-        atIndexPath: (nullable NSIndexPath *)indexPath forChangeType: (NSFetchedResultsChangeType)type
-       newIndexPath: (nullable NSIndexPath *)newIndexPath {
-
-    NSLog(@"**** FC DidChangeObject ****");
-
-    switch (type){
-        case NSFetchedResultsChangeInsert:
-            // TODO update collectionview
-            break;
-        case NSFetchedResultsChangeDelete:
-            break;
-        case NSFetchedResultsChangeMove:
-            break;
-        case NSFetchedResultsChangeUpdate:
-            break;
-    }
-}
-
-- (void) controllerWillChangeContent: (NSFetchedResultsController *)controller {
-    NSLog(@"**** FC WillChangeContent ****");
-}
-
-- (void) controllerDidChangeContent: (NSFetchedResultsController *)controller {
-    NSLog(@"**** FC DidChangeContent ****");
-}
+//#pragma mark - NSFetchedResultsControllerDelegate
+//
+//- (void) controller: (NSFetchedResultsController *)controller didChangeSection: (id <NSFetchedResultsSectionInfo>)sectionInfo
+//            atIndex: (NSUInteger)sectionIndex forChangeType: (NSFetchedResultsChangeType)type {
+//
+//    NSLog(@"**** FC SectionDidChange ****");
+//}
+//
+//- (void) controller: (NSFetchedResultsController *)controller didChangeObject: (id)anObject
+//        atIndexPath: (nullable NSIndexPath *)indexPath forChangeType: (NSFetchedResultsChangeType)type
+//       newIndexPath: (nullable NSIndexPath *)newIndexPath {
+//
+//    NSLog(@"**** FC DidChangeObject ****");
+//
+//    switch (type){
+//        case NSFetchedResultsChangeInsert:
+//            // TODO update collectionview
+//            break;
+//        case NSFetchedResultsChangeDelete:
+//            break;
+//        case NSFetchedResultsChangeMove:
+//            break;
+//        case NSFetchedResultsChangeUpdate:
+//            break;
+//    }
+//}
+//
+//- (void) controllerWillChangeContent: (NSFetchedResultsController *)controller {
+//    NSLog(@"**** FC WillChangeContent ****");
+//}
+//
+//- (void) controllerDidChangeContent: (NSFetchedResultsController *)controller {
+//    NSLog(@"**** FC DidChangeContent ****");
+//}
 
 #pragma mark - UICollectionViewDataSource
 
@@ -220,14 +225,14 @@
 }
 
 
-- (void) collectionView: (UICollectionView *)collectionView didSelectItemAtIndexPath: (NSIndexPath *)indexPath {
-    ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
-
-    NSLog(@"*** ForeCast: %@ ***", forecastDataPoint.summary);
-
-    // TODO perform segue
-
-}
+//- (void) collectionView: (UICollectionView *)collectionView didSelectItemAtIndexPath: (NSIndexPath *)indexPath {
+//    ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
+//
+//    NSLog(@"*** ForeCast: %@ ***", forecastDataPoint.summary);
+//
+//    // TODO perform segue
+//
+//}
 
 
 #pragma mark - ForecastDatasourceDelegate
@@ -271,6 +276,36 @@
     [_alertVC addAction:cancelAction];
 
     [self presentViewController:_alertVC animated:YES completion:nil];
+}
+
+#pragma mark - UINavigationControllerDelegate
+
+- (nullable id <UIViewControllerAnimatedTransitioning>) navigationController: (UINavigationController *)navigationController
+                                             animationControllerForOperation: (UINavigationControllerOperation)operation
+                                                          fromViewController: (UIViewController *)fromVc
+                                                            toViewController: (UIViewController *)toVc {
+    id <UIViewControllerAnimatedTransitioning> animator = nil;
+    switch (operation) {
+        case UINavigationControllerOperationPush: {
+            WeatherTransitionAnimator *transitionAnimator = [[WeatherTransitionAnimator alloc] init];
+            transitionAnimator.presenting = YES;
+
+            animator = transitionAnimator;
+        }
+            break;
+        case UINavigationControllerOperationPop: {
+            WeatherTransitionAnimator *transitionAnimator = [[WeatherTransitionAnimator alloc] init];
+            transitionAnimator.presenting = NO;
+
+            animator = transitionAnimator;
+        }
+            break;
+        case UINavigationControllerOperationNone:
+            break;
+    }
+
+    NSLog(@"*** Animator: %@ ", animator);
+    return animator;
 }
 
 
