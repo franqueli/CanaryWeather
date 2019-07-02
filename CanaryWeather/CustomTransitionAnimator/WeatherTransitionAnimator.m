@@ -45,19 +45,21 @@
     [containerView insertSubview: toView belowSubview: fromView];
     toView.frame = toFinalFrame;
 
-    UIViewPropertyAnimator *animator1 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0 curve: UIViewAnimationCurveEaseIn
-            animations: ^{
+    UIViewPropertyAnimator *animator1 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0
+            curve: UIViewAnimationCurveEaseIn animations: ^{
                 // move from diagonally
                 fromView.frame = CGRectOffset(fromView.frame, -100.0, 200.0);
      }];
 
-    UIViewPropertyAnimator *animator2 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0 curve: UIViewAnimationCurveEaseIn animations: ^{
+    UIViewPropertyAnimator *animator2 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0
+            curve: UIViewAnimationCurveEaseIn animations: ^{
         CGFloat width = containerView.frame.size.width;
         CGFloat height = containerView.frame.size.height;
         toView.frame = CGRectOffset(toView.frame, width - 100.0, -height + 200.0);
     }];
 
-    UIViewPropertyAnimator *animator3 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0 curve: UIViewAnimationCurveEaseIn animations: ^{
+    UIViewPropertyAnimator *animator3 = [[UIViewPropertyAnimator alloc] initWithDuration: _duration / 3.0
+            curve: UIViewAnimationCurveEaseIn animations: ^{
         [containerView bringSubviewToFront: toView];
         toView.frame = toFinalFrame;
 
