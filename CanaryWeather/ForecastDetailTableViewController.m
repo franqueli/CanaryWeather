@@ -27,9 +27,8 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         formatter = [[NSDateFormatter alloc] init];
-        formatter.timeStyle = NSDateFormatterShortStyle;
-        formatter.dateStyle = NSDateFormatterShortStyle;
-        formatter.doesRelativeDateFormatting = YES;
+        formatter.timeStyle = NSDateFormatterNoStyle;
+        formatter.dateStyle = NSDateFormatterFullStyle;
     });
 
     return formatter;
@@ -45,6 +44,8 @@
     _conditionsImageView.image = [ForecastViewModel imageForWeatherType: _forecastDataPoint.weatherType];
     _conditionsLabels.text = [ForecastViewModel captionForWeatherType: _forecastDataPoint.weatherType];
 
+    _highTempLabel.text = [NSString stringWithFormat: @"%.0f°", _forecastDataPoint.temperatureMax];
+    _lowTempLabel.text = [NSString stringWithFormat: @"%.0f°", _forecastDataPoint.temperatureMin];
 }
 
 //#pragma mark - Table view data source
