@@ -132,6 +132,12 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     forecastDataPoint.temperatureMin = [(NSNumber *)infoForDay[@"temperatureMin"] doubleValue];
     forecastDataPoint.time = [[NSDate alloc] initWithTimeIntervalSince1970: [(NSNumber *)infoForDay[@"time"] integerValue]];
 
+    forecastDataPoint.sunriseTime = [[NSDate alloc] initWithTimeIntervalSince1970: [(NSNumber *)infoForDay[@"sunriseTime"] integerValue]];
+    forecastDataPoint.sunsetTime = [[NSDate alloc] initWithTimeIntervalSince1970: [(NSNumber *)infoForDay[@"sunsetTime"] integerValue]];
+    forecastDataPoint.humidity = [(NSNumber *)infoForDay[@"humidity"] floatValue];
+    forecastDataPoint.uvIndex = [(NSNumber *)infoForDay[@"uvIndex"] intValue];
+    forecastDataPoint.windSpeed = [(NSNumber *)infoForDay[@"windSpeed"] floatValue];
+
     forecastDataPoint.location = forecastLocation;
 
     NSError *error = nil;
