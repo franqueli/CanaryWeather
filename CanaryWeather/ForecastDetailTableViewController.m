@@ -18,6 +18,13 @@
 @property (nonatomic, strong) IBOutlet UILabel *highTempLabel;
 @property (nonatomic, strong) IBOutlet UILabel *lowTempLabel;
 
+@property (nonatomic, strong) IBOutlet UILabel *summaryLabel;
+@property (nonatomic, strong) IBOutlet UILabel *humidityValueLabel;
+@property (nonatomic, strong) IBOutlet UILabel *uvIndexValueLabel;
+@property (nonatomic, strong) IBOutlet UILabel *windSpeedValueLabel;
+@property (nonatomic, strong) IBOutlet UILabel *sunriseTimeLabel;
+@property (nonatomic, strong) IBOutlet UILabel *sunsetTimeLabel;
+
 @end
 
 @implementation ForecastDetailTableViewController
@@ -34,6 +41,18 @@
     return formatter;
 }
 
++ (NSDateFormatter *) timeFormatter {
+    static NSDateFormatter *timeFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        timeFormatter = [[NSDateFormatter alloc] init];
+        timeFormatter.timeStyle = NSDateFormatterShortStyle;
+        timeFormatter.dateStyle = NSDateFormatterNoStyle;
+    });
+
+    return timeFormatter;
+}
+
 
 - (void) viewDidLoad {
     [super viewDidLoad];
@@ -46,72 +65,16 @@
 
     _highTempLabel.text = [NSString stringWithFormat: @"%.0f°", _forecastDataPoint.temperatureMax];
     _lowTempLabel.text = [NSString stringWithFormat: @"%.0f°", _forecastDataPoint.temperatureMin];
+
+    _summaryLabel.text = _forecastDataPoint.summary;
+
+    _humidityValueLabel.text = [NSString stringWithFormat: @"%.0f%%", _forecastDataPoint.humidity * 100];
+    _uvIndexValueLabel.text = [NSString stringWithFormat: @"%d", _forecastDataPoint.uvIndex];
+    _windSpeedValueLabel.text = [NSString stringWithFormat: @"%.2f mph", _forecastDataPoint.windSpeed];
+
+    NSDateFormatter *timeFormatter = [ForecastDetailTableViewController timeFormatter];
+    _sunriseTimeLabel.text = [timeFormatter stringFromDate: _forecastDataPoint.sunriseTime];
+    _sunsetTimeLabel.text = [timeFormatter stringFromDate: _forecastDataPoint.sunsetTime];
 }
-
-//#pragma mark - Table view data source
-//
-//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-//#warning Incomplete implementation, return the number of sections
-//    return 0;
-//}
-//
-//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-//#warning Incomplete implementation, return the number of rows
-//    return 0;
-//}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
-    return cell;
-}
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
