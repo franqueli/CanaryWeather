@@ -1,12 +1,12 @@
 //
-//  ViewController.m
+//  ForecastListViewController.m
 //  CanaryWeather
 //
 //  Created by Franqueli Mendez on 6/26/19.
 //  Copyright © 2019 Franqueli Mendez. All rights reserved.
 //
 
-#import "ViewController.h"
+#import "ForecastListViewController.h"
 #import "CanaryWeather+CoreDataModel.h"
 #import "DataController.h"
 #import "WeatherSummaryCell.h"
@@ -15,7 +15,7 @@
 #import "WeatherTransitionAnimator.h"
 #import <Corelocation/CoreLocation.h>
 
-@interface ViewController () <UINavigationControllerDelegate> { // TODO remove transitioning delegate
+@interface ForecastListViewController () <UINavigationControllerDelegate> { // TODO remove transitioning delegate
     CLLocationCoordinate2D _locationCoordinate;
 }
 
@@ -32,7 +32,7 @@
 
 @end
 
-@implementation ViewController
+@implementation ForecastListViewController
 
 + (NSDateFormatter *) dateFormatter {
     static NSDateFormatter *formatter;
@@ -96,7 +96,7 @@
     ForecastLocation *forecastLocation = [results firstObject];
 
     if (forecastLocation) {
-        _lastUpdatedLabel.text = [NSString stringWithFormat: @"Last Updated: %@", [[ViewController dateFormatter] stringFromDate: forecastLocation.creationDate]];
+        _lastUpdatedLabel.text = [NSString stringWithFormat: @"Last Updated: %@", [[ForecastListViewController dateFormatter] stringFromDate: forecastLocation.creationDate]];
 
         NSFetchRequest *fetchRequest = [ForecastDataPoint fetchRequest];
         NSPredicate *predicate = [NSPredicate predicateWithFormat: @"location == %@", forecastLocation];

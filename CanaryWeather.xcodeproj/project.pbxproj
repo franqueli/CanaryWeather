@@ -10,7 +10,7 @@
 		6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */; };
 		6C873B1E22CBD017007361B4 /* WeatherTransitionAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6C873B1D22CBD017007361B4 /* WeatherTransitionAnimator.m */; };
 		6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C422C41E4B0080793D /* AppDelegate.m */; };
-		6CC959C822C41E4B0080793D /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C722C41E4B0080793D /* ViewController.m */; };
+		6CC959C822C41E4B0080793D /* ForecastListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959C722C41E4B0080793D /* ForecastListViewController.m */; };
 		6CC959CB22C41E4B0080793D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CC959C922C41E4B0080793D /* Main.storyboard */; };
 		6CC959CE22C41E4B0080793D /* CanaryWeather.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6CC959CC22C41E4B0080793D /* CanaryWeather.xcdatamodeld */; };
 		6CC959D022C41E4C0080793D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CC959CF22C41E4C0080793D /* Assets.xcassets */; };
@@ -50,8 +50,8 @@
 		6CC959C022C41E4B0080793D /* CanaryWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanaryWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CC959C322C41E4B0080793D /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6CC959C422C41E4B0080793D /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		6CC959C622C41E4B0080793D /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		6CC959C722C41E4B0080793D /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		6CC959C622C41E4B0080793D /* ForecastListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ForecastListViewController.h; sourceTree = "<group>"; };
+		6CC959C722C41E4B0080793D /* ForecastListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ForecastListViewController.m; sourceTree = "<group>"; };
 		6CC959CA22C41E4B0080793D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		6CC959CD22C41E4B0080793D /* CanaryWeather.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CanaryWeather.xcdatamodel; sourceTree = "<group>"; };
 		6CC959CF22C41E4C0080793D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,8 +149,8 @@
 				6CC959C422C41E4B0080793D /* AppDelegate.m */,
 				6C873B1822CAC1E0007361B4 /* ForecastDetailTableViewController.h */,
 				6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */,
-				6CC959C622C41E4B0080793D /* ViewController.h */,
-				6CC959C722C41E4B0080793D /* ViewController.m */,
+				6CC959C622C41E4B0080793D /* ForecastListViewController.h */,
+				6CC959C722C41E4B0080793D /* ForecastListViewController.m */,
 				6CC959C922C41E4B0080793D /* Main.storyboard */,
 				6CC959CF22C41E4C0080793D /* Assets.xcassets */,
 				6CC959D122C41E4C0080793D /* LaunchScreen.storyboard */,
@@ -327,7 +327,7 @@
 				6C873B1A22CAC1E0007361B4 /* ForecastDetailTableViewController.m in Sources */,
 				6CC959CE22C41E4B0080793D /* CanaryWeather.xcdatamodeld in Sources */,
 				6C873B1E22CBD017007361B4 /* WeatherTransitionAnimator.m in Sources */,
-				6CC959C822C41E4B0080793D /* ViewController.m in Sources */,
+				6CC959C822C41E4B0080793D /* ForecastListViewController.m in Sources */,
 				6CC959D622C41E4C0080793D /* main.m in Sources */,
 				6CF6C32422C57730002AE7E1 /* ForecastDataSource.m in Sources */,
 				6CC959C522C41E4B0080793D /* AppDelegate.m in Sources */,

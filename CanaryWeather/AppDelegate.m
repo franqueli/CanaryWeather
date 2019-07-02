@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "ForecastDataSource.h"
 #import "DataController.h"
-#import "ViewController.h"
+#import "ForecastListViewController.h"
 
 @interface AppDelegate ()
 
@@ -24,7 +24,7 @@
     [_dataController load: nil];
 
     UINavigationController *navigationController = (UINavigationController *)_window.rootViewController;
-    ViewController *vc = (ViewController *)navigationController.topViewController;
+    ForecastListViewController *vc = (ForecastListViewController *)navigationController.topViewController;
     vc.dataController = _dataController;
 
     return YES;

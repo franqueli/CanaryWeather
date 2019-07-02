@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  ForecastListViewController.h
 //  CanaryWeather
 //
 //  Created by Franqueli Mendez on 6/26/19.
@@ -13,7 +13,7 @@
 
 @class DataController;
 
-@interface ViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate,
+@interface ForecastListViewController : UIViewController <CLLocationManagerDelegate, NSFetchedResultsControllerDelegate,
     UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, ForecastDataSourceDelegate>
 
 @property (nonatomic, strong) DataController *dataController;
