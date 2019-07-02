@@ -15,7 +15,7 @@
 #import "WeatherTransitionAnimator.h"
 #import <Corelocation/CoreLocation.h>
 
-@interface ForecastListViewController () <UINavigationControllerDelegate> { // TODO remove transitioning delegate
+@interface ForecastListViewController () <UINavigationControllerDelegate> {
     CLLocationCoordinate2D _locationCoordinate;
 }
 
@@ -104,7 +104,7 @@
         fetchRequest.sortDescriptors = @[[[NSSortDescriptor alloc] initWithKey: @"time" ascending: YES]];
 
         self.resultsController = [[NSFetchedResultsController alloc] initWithFetchRequest: fetchRequest managedObjectContext: _dataController.viewContext
-                sectionNameKeyPath: nil cacheName: nil];        // TODO add a cachename
+                sectionNameKeyPath: nil cacheName: nil];
         _resultsController.delegate = self;
 
         error = nil;
@@ -166,41 +166,6 @@
     [self  checkLocationAuthorization];
 }
 
-//#pragma mark - NSFetchedResultsControllerDelegate
-//
-//- (void) controller: (NSFetchedResultsController *)controller didChangeSection: (id <NSFetchedResultsSectionInfo>)sectionInfo
-//            atIndex: (NSUInteger)sectionIndex forChangeType: (NSFetchedResultsChangeType)type {
-//
-//    NSLog(@"**** FC SectionDidChange ****");
-//}
-//
-//- (void) controller: (NSFetchedResultsController *)controller didChangeObject: (id)anObject
-//        atIndexPath: (nullable NSIndexPath *)indexPath forChangeType: (NSFetchedResultsChangeType)type
-//       newIndexPath: (nullable NSIndexPath *)newIndexPath {
-//
-//    NSLog(@"**** FC DidChangeObject ****");
-//
-//    switch (type){
-//        case NSFetchedResultsChangeInsert:
-//            // TODO update collectionview
-//            break;
-//        case NSFetchedResultsChangeDelete:
-//            break;
-//        case NSFetchedResultsChangeMove:
-//            break;
-//        case NSFetchedResultsChangeUpdate:
-//            break;
-//    }
-//}
-//
-//- (void) controllerWillChangeContent: (NSFetchedResultsController *)controller {
-//    NSLog(@"**** FC WillChangeContent ****");
-//}
-//
-//- (void) controllerDidChangeContent: (NSFetchedResultsController *)controller {
-//    NSLog(@"**** FC DidChangeContent ****");
-//}
-
 #pragma mark - UICollectionViewDataSource
 
 - (NSInteger) collectionView: (UICollectionView *)collectionView numberOfItemsInSection: (NSInteger)section {
@@ -223,17 +188,6 @@
 
     return result;
 }
-
-
-//- (void) collectionView: (UICollectionView *)collectionView didSelectItemAtIndexPath: (NSIndexPath *)indexPath {
-//    ForecastDataPoint *forecastDataPoint = [_resultsController objectAtIndexPath: indexPath];
-//
-//    NSLog(@"*** ForeCast: %@ ***", forecastDataPoint.summary);
-//
-//    // TODO perform segue
-//
-//}
-
 
 #pragma mark - ForecastDatasourceDelegate
 

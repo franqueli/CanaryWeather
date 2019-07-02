@@ -116,8 +116,8 @@ static NSString *const FORECAST_URL_FORMAT = @"https://api.darksky.net/forecast/
     NSError *error = nil;
     [_dataController.backgroundContext save: &error];
     if (error) {
-        // TODO : how should we handle this? Return nil?
         NSLog(@"Error saving ForecastLocation");
+        return nil;
     }
 
     return forecastLocation;
