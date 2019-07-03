@@ -142,26 +142,26 @@
 		6CC959C222C41E4B0080793D /* CanaryWeather */ = {
 			isa = PBXGroup;
 			children = (
-				6C873B1B22CBCD2E007361B4 /* CustomTransitionAnimator */,
 				6C92092722C63E6B00B6C4E5 /* Cells */,
+				6C873B1B22CBCD2E007361B4 /* CustomTransitionAnimator */,
 				6CCB0B2722C642DF009DB81C /* Model */,
+				6CC959CF22C41E4C0080793D /* Assets.xcassets */,
+				6CC959D422C41E4C0080793D /* Info.plist */,
+				6CC959D522C41E4C0080793D /* main.m */,
+				6CC959D122C41E4C0080793D /* LaunchScreen.storyboard */,
+				6CC959C922C41E4B0080793D /* Main.storyboard */,
 				6CC959C322C41E4B0080793D /* AppDelegate.h */,
 				6CC959C422C41E4B0080793D /* AppDelegate.m */,
+				D37EA1C540A6021A109B934A /* DataController.h */,
+				D37EABC576F733F123CC0677 /* DataController.m */,
+				6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */,
+				6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */,
 				6C873B1822CAC1E0007361B4 /* ForecastDetailTableViewController.h */,
 				6C873B1922CAC1E0007361B4 /* ForecastDetailTableViewController.m */,
 				6CC959C622C41E4B0080793D /* ForecastListViewController.h */,
 				6CC959C722C41E4B0080793D /* ForecastListViewController.m */,
-				6CC959C922C41E4B0080793D /* Main.storyboard */,
-				6CC959CF22C41E4C0080793D /* Assets.xcassets */,
-				6CC959D122C41E4C0080793D /* LaunchScreen.storyboard */,
-				6CC959D422C41E4C0080793D /* Info.plist */,
-				6CC959D522C41E4C0080793D /* main.m */,
-				6CF6C32522C57760002AE7E1 /* ForecastDataSource.h */,
-				6CF6C32322C57730002AE7E1 /* ForecastDataSource.m */,
-				D37EABC576F733F123CC0677 /* DataController.m */,
-				D37EA1C540A6021A109B934A /* DataController.h */,
-				D37EA77FB3A2E81C7AEAD8F7 /* ForecastViewModel.m */,
 				D37EA6E5763423A737C5131F /* ForecastViewModel.h */,
+				D37EA77FB3A2E81C7AEAD8F7 /* ForecastViewModel.m */,
 			);
 			path = CanaryWeather;
 			sourceTree = "<group>";

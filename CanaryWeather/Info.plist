@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>This app need access to your location. We'll use this information to get relevant weather info.</string>
+	<string>This app need access to your location. We&apos;ll use this information to get relevant weather info.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>This app requires access to your location to function.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
